@@ -4,6 +4,7 @@ const colors = {
   primary300: '#00A3FF',
   black: '#2D2D2D',
   gray: '#939393',
+  white: '#FFFFFF',
 };
 
 export default colors;
