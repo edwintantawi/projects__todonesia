@@ -1,7 +1,9 @@
+import AppHeader from '../components/AppHeader';
+
 const App = () => {
   return (
     <div className="app">
-      <h1>Todonesia</h1>
+      <AppHeader />
     </div>
   );
 };
