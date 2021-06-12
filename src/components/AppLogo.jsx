@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AppContainer = () => {
+const AppLogo = () => {
   return (
     <Logo>
       <img src="/logo512.png" alt="Todonesia" />
@@ -13,6 +13,7 @@ const AppContainer = () => {
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  height: 50px;
 
   img {
     height: 44px;
@@ -25,4 +26,4 @@ const Logo = styled.div`
   }
 `;
 
-export default AppContainer;
+export default AppLogo;

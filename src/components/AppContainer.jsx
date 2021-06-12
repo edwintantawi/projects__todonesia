@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AppLogo = ({ children }) => {
+const AppContainer = ({ children }) => {
   return <Container>{children}</Container>;
 };
 
@@ -11,4 +11,4 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-export default AppLogo;
+export default AppContainer;
