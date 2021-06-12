@@ -2,8 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 import AppLogo from '../components/AppLogo';
 import colors from '../styles/colors';
+import firebase, {
+  auth,
+  facebookAuthProvider,
+  googleAuthProvider,
+} from '../services/firebase';
+import useDataStore from '../hooks/useDataStore';
+import actionTypes from '../context/actionTypes';
 
 const AppAuth = () => {
+  const [, dispatch] = useDataStore();
+
+  const handleSignIn = (provider) => {
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.info(result);
+        const accessToken = result.credential.accessToken;
+        const photoURL =
+          result.credential.providerId === 'facebook.com'
+            ? `${result.user.photoURL}?access_token=${accessToken}`
+            : result.user.photoURL;
+
+        dispatch({
+          type: actionTypes.ADD_USER,
+          payload: {
+            uid: result.user.uid,
+            email: result.user.email,
+            displayName: result.user.displayName,
+            photoURL: photoURL,
+          },
+        });
+      })
+      .catch((error) => firebase.auth().signInWithCredential(error.credential));
+  };
+
   return (
     <AuthScreen>
       <img src="/bg-auth.webp" alt="" />
@@ -11,10 +44,12 @@ const AppAuth = () => {
         <AuthProviderWrapper>
           <AppLogo />
           <p>Login With</p>
-          <button id="google">
+          <button id="google" onClick={() => handleSignIn(googleAuthProvider)}>
             <img src="/google.svg" alt="" /> Google
           </button>
-          <button id="facebook">
+          <button
+            id="facebook"
+            onClick={() => handleSignIn(facebookAuthProvider)}>
             <img src="/facebook.svg" alt="" />
             Facebook
           </button>
