@@ -4,16 +4,18 @@ import colors from '../styles/colors';
 import AppContainer from './AppContainer';
 import AppLogo from './AppLogo';
 import Avatar from '@material-ui/core/Avatar';
+import useDataStore from '../hooks/useDataStore';
 
 const AppHeader = () => {
+  const [{ user }] = useDataStore();
   return (
     <Header>
       <AppContainer>
         <Wrapper>
           <AppLogo />
           <UserMenu>
-            <span>useremail@email.com</span>
-            <Avatar src="" />
+            <span>{user.email}</span>
+            <Avatar src={user.photoURL} />
           </UserMenu>
         </Wrapper>
       </AppContainer>
