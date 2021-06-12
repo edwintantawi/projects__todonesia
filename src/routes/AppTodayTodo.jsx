@@ -7,10 +7,10 @@ import AppButton from '../components/AppButton';
 import { Add } from '@material-ui/icons';
 import AppWrapper from '../components/AppWrapper';
 import useDataStore from '../hooks/useDataStore';
-import actionTypes from '../context/actionTypes';
+import firebase, { db } from '../services/firebase';
 
 const AppTodayTodo = () => {
-  const [{ todos }, dispatch] = useDataStore();
+  const [{ user, todos }] = useDataStore();
   const [addTodoActiveState, setAddTodoActiveState] = useState(false);
   const [inputTodo, setInputTodo] = useState('');
 
@@ -25,14 +25,14 @@ const AppTodayTodo = () => {
       return;
     }
 
-    dispatch({
-      type: actionTypes.ADD_TODO,
-      payload: {
-        id: new Date().toISOString(),
-        title: inputTodo,
-      },
-    });
+    const todoData = {
+      uid: user.uid,
+      title: inputTodo,
+      isDone: false,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
 
+    db.collection('todos').add(todoData);
     setInputTodo('');
   };
 
@@ -56,25 +56,24 @@ const AppTodayTodo = () => {
             isDone={todo.isDone}
           />
         ))}
-      </AppTodoList>
-
-      <form onSubmit={handleAddTodo}>
-        {addTodoActiveState && (
-          <AppTodoInput value={inputTodo} onChange={setInputTodo} />
-        )}
-
-        <AppWrapper>
-          <AppButton
-            title="Add Todo"
-            Icon={!addTodoActiveState && Add}
-            primary={addTodoActiveState}
-            type={addTodoActiveState ? 'submit' : undefined}
-          />
+        <form onSubmit={handleAddTodo}>
           {addTodoActiveState && (
-            <AppButton title="Cancel" onClick={handleCancelTodo} />
+            <AppTodoInput value={inputTodo} onChange={setInputTodo} />
           )}
-        </AppWrapper>
-      </form>
+
+          <AppWrapper>
+            <AppButton
+              title="Add Todo"
+              Icon={!addTodoActiveState && Add}
+              primary={addTodoActiveState}
+              type={addTodoActiveState ? 'submit' : undefined}
+            />
+            {addTodoActiveState && (
+              <AppButton title="Cancel" onClick={handleCancelTodo} />
+            )}
+          </AppWrapper>
+        </form>
+      </AppTodoList>
     </div>
   );
 };

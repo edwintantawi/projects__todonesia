@@ -5,14 +5,7 @@ const reducer = (state, action) => {
     case actionTypes.ADD_TODO:
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          {
-            id: action.payload.id,
-            title: action.payload.title,
-            isDone: false,
-          },
-        ],
+        todos: action.payload,
       };
     case actionTypes.UPDATE_TODO:
       return {
@@ -34,6 +27,11 @@ const reducer = (state, action) => {
           displayName: action.payload.displayName,
           photoURL: action.payload.photoURL,
         },
+      };
+    case actionTypes.UPDATE_ACTIVE_MENU:
+      return {
+        ...state,
+        activeMenu: !state.activeMenu,
       };
 
     default:

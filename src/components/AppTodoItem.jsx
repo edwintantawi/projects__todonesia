@@ -3,30 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import useDataStore from '../hooks/useDataStore';
-import actionTypes from '../context/actionTypes';
+import { db } from '../services/firebase';
 
 const AppTodoItem = ({ title, id, isDone }) => {
-  const [, dispatch] = useDataStore();
-
   const handleOnChange = (event) => {
-    dispatch({
-      type: actionTypes.UPDATE_TODO,
-      payload: {
-        id: event.target.id,
-      },
+    db.collection('todos').doc(id).update({
+      isDone: event.target.checked,
     });
   };
 
   return (
     <TodoItem>
       <TodoCheck>
-        <input
-          type="checkbox"
-          checked={isDone}
-          onChange={handleOnChange}
-          id={id}
-        />
+        <input type="checkbox" checked={isDone} onChange={handleOnChange} />
       </TodoCheck>
       <TodoTask>
         <h3>{title}</h3>

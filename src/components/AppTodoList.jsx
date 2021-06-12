@@ -7,6 +7,7 @@ const AppTodoList = ({ children }) => {
 
 const TodoList = styled.ul`
   margin-top: 2rem;
+  margin-bottom: 70vh;
 `;
 
 export default AppTodoList;

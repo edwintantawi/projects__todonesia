@@ -62,27 +62,52 @@ const AppAuth = () => {
 const AuthScreen = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: 1fr;
+  grid-template-rows: 20vh 1fr;
   column-gap: 80px;
 
+  @media screen and (min-width: 900px) {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+  }
+
   & > img {
-    grid-column: 1 / span 8;
+    grid-column: auto;
     width: 100%;
-    height: 100%;
+    height: 20vh;
     object-fit: cover;
+
+    @media screen and (min-width: 900px) {
+      grid-column: 1 / span 7;
+      height: 100%;
+    }
+
+    @media screen and (min-width: 1060px) {
+      grid-column: 1 / span 8;
+    }
   }
 `;
 
 const AuthProvider = styled.div`
-  grid-column: 9 / span 3;
+  grid-column: auto;
   display: grid;
   place-items: center;
+
+  @media screen and (min-width: 900px) {
+    grid-column: 8 / span 4;
+  }
+
+  @media screen and (min-width: 1060px) {
+    grid-column: 9 / span 3;
+  }
 `;
 
 const AuthProviderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  width: 90%;
+
+  @media screen and (min-width: 900px) {
+    width: 100%;
+  }
 
   p {
     color: ${colors.gray};

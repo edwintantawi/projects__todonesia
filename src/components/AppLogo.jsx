@@ -13,16 +13,28 @@ const AppLogo = () => {
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 40px;
 
   img {
-    height: 44px;
+    height: 30px;
     width: 50px;
     object-fit: contain;
   }
   span {
-    margin-left: 0.7rem;
-    font-size: 1.4rem;
+    margin-left: 0.1rem;
+    font-size: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    height: 50px;
+    img {
+      height: 44px;
+    }
+
+    span {
+      font-size: 1.4rem;
+      margin-left: 0.7rem;
+    }
   }
 `;
 
