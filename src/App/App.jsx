@@ -8,16 +8,18 @@ import AppTodayTodo from '../routes/AppTodayTodo';
 import useDataStore from '../hooks/useDataStore';
 import AppAuth from '../routes/AppAuth';
 import AppDataProvider from '../components/AppDataProvider';
-import { useEffect } from 'react';
 import firebase from '../services/firebase';
 import actionTypes from '../context/actionTypes';
+import { useLayoutEffect } from 'react';
+import AppLoading from '../components/AppLoading';
+import { useState } from 'react';
 
 const App = () => {
   const [{ user }, dispatch] = useDataStore();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      console.info('user :', user);
       if (user) {
         dispatch({
           type: actionTypes.ADD_USER,
@@ -29,11 +31,13 @@ const App = () => {
           },
         });
       }
+      setLoading(false);
     });
   }, [dispatch]);
 
   return (
     <div className="app">
+      {loading && <AppLoading />}
       {!user ? (
         <AppAuth />
       ) : (

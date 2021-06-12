@@ -33,7 +33,11 @@ const reducer = (state, action) => {
         ...state,
         activeMenu: !state.activeMenu,
       };
-
+    case actionTypes.REMOVE_USER:
+      return {
+        ...state,
+        user: null,
+      };
     default:
       return state;
   }

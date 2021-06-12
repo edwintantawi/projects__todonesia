@@ -9,6 +9,7 @@ import useDataStore from '../hooks/useDataStore';
 import MenuIcon from '@material-ui/icons/Menu';
 import { IconButton } from '@material-ui/core';
 import actionTypes from '../context/actionTypes';
+import firebase from '../services/firebase';
 
 const AppHeader = () => {
   const [{ user }, dispatch] = useDataStore();
@@ -28,7 +29,17 @@ const AppHeader = () => {
           <AppLogo />
           <UserMenu>
             <span>{user.email}</span>
-            <Avatar src={user.photoURL} />
+            <Avatar
+              src={user.photoURL}
+              onClick={() =>
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(() => {
+                    dispatch({ type: actionTypes.REMOVE_USER });
+                  })
+              }
+            />
           </UserMenu>
         </Wrapper>
       </AppContainer>
@@ -69,6 +80,7 @@ const UserMenu = styled.div`
   }
   .MuiAvatar-root {
     margin-left: 26px;
+    cursor: pointer;
   }
 
   @media screen and (min-width: 750px) {
