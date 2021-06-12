@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GlobalStyle from './styles/globalStyles';
 import App from './App/App';
+import DataStoreProvider from './context/store';
+import initialState from './context/initialState';
+import reducer from './context/reducer';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <DataStoreProvider initialState={initialState} reducer={reducer}>
+      <App />
+    </DataStoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
