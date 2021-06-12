@@ -25,6 +25,17 @@ const reducer = (state, action) => {
           ),
         ],
       };
+    case actionTypes.ADD_USER:
+      return {
+        ...state,
+        user: {
+          uid: action.payload.uid,
+          email: action.payload.email,
+          displayName: action.payload.displayName,
+          photoURL: action.payload.photoURL,
+        },
+      };
+
     default:
       return state;
   }
