@@ -43,7 +43,7 @@ const AppAuth = () => {
       <AuthProvider>
         <AuthProviderWrapper>
           <AppLogo />
-          <p>Login With</p>
+          <p>Login With :</p>
           <button id="google" onClick={() => handleSignIn(googleAuthProvider)}>
             <img src="/google.svg" alt="" /> Google
           </button>
@@ -63,7 +63,7 @@ const AuthScreen = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 20vh 1fr;
+  grid-template-rows: 50vh 1fr;
   column-gap: 80px;
 
   @media screen and (min-width: 900px) {
@@ -74,7 +74,7 @@ const AuthScreen = styled.div`
   & > img {
     grid-column: auto;
     width: 100%;
-    height: 20vh;
+    height: 50vh;
     object-fit: cover;
 
     @media screen and (min-width: 900px) {
@@ -91,9 +91,11 @@ const AuthScreen = styled.div`
 const AuthProvider = styled.div`
   grid-column: auto;
   display: grid;
-  place-items: center;
+  justify-items: center;
+  margin-top: 40px;
 
   @media screen and (min-width: 900px) {
+    place-items: center;
     grid-column: 8 / span 4;
   }
 
@@ -104,14 +106,12 @@ const AuthProvider = styled.div`
 
 const AuthProviderWrapper = styled.div`
   width: 90%;
-
-  @media screen and (min-width: 900px) {
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
 
   p {
     color: ${colors.gray};
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 1rem 0 0.5rem;
   }
 
@@ -121,7 +121,7 @@ const AuthProviderWrapper = styled.div`
     justify-content: center;
     width: 100%;
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     border-radius: 0.5rem;
     border: none;
     background-color: white;
@@ -132,6 +132,16 @@ const AuthProviderWrapper = styled.div`
       height: 1rem;
       margin-right: 0.5rem;
     }
+  }
+
+  @media screen and (min-width: 750px) {
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 100%;
   }
 
   button#google {

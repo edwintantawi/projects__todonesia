@@ -66,8 +66,16 @@ const UserMenu = styled.div`
     margin-right: 1rem;
     font-size: 0.9rem;
     display: none;
+  }
+  .MuiAvatar-root {
+    margin-left: 26px;
+  }
 
-    @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) {
+    .MuiAvatar-root {
+      margin-left: 0;
+    }
+    span {
       display: block;
     }
   }

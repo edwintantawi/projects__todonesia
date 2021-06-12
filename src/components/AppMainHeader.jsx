@@ -27,6 +27,13 @@ const Header = styled.header`
   }
   p {
     color: ${colors.gray};
+    font-size: 0.8rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    p {
+      font-size: 1rem;
+    }
   }
 `;
 

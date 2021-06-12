@@ -46,7 +46,7 @@ const Menu = styled.nav`
   transition: 350ms ease-in-out;
 
   background-color: ${colors.white};
-  border-right: 1px solid ${colors.gray};
+  border-right: 1px solid ${colors.lightgray};
   border-radius: 0;
 
   @media screen and (min-width: 750px) {
@@ -63,11 +63,15 @@ const Menu = styled.nav`
 
   & > a {
     display: block;
-    padding: 1rem 1.5rem;
+    padding: 0.7rem 1rem;
     text-decoration: none;
     margin-bottom: 1rem;
     border-left: 5px solid ${colors.primary500};
     font-size: 0.8rem;
+
+    @media screen and (min-width: 750px) {
+      padding: 1rem 1.5rem;
+    }
   }
 
   & > a.active {

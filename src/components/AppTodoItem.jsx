@@ -36,12 +36,16 @@ AppTodoItem.defaultProps = {
 const TodoItem = styled.li`
   list-style: none;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 26px 1fr;
   column-gap: 1rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
   border-radius: 0.5rem;
-  border: 1px solid ${colors.gray};
+  background-color: ${colors.lightgray};
+
+  @media screen and (min-width: 750px) {
+    grid-template-columns: 50px 1fr;
+  }
 `;
 
 const TodoCheck = styled.div`
@@ -58,6 +62,13 @@ const TodoCheck = styled.div`
 const TodoTask = styled.div`
   h3 {
     font-weight: ${fonts.medium};
+    font-size: 0.8rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    h3 {
+      font-size: 0.9rem;
+    }
   }
 `;
 
