@@ -5,6 +5,7 @@ const colors = {
   primary200: '#dbf2ff',
   black: '#2D2D2D',
   gray: '#939393',
+  lightgray: '#f3f3f3',
   white: '#FFFFFF',
 };
 
