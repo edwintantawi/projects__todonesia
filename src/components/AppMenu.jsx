@@ -18,8 +18,9 @@ const AppMenu = () => {
 };
 
 const Menu = styled.nav`
-  display: flex;
-  flex-direction: column;
+  position: sticky;
+  top: 119px;
+  height: max-content;
   border-radius: 1rem;
   margin-top: 0.8rem;
 

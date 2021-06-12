@@ -22,6 +22,9 @@ const AppHeader = () => {
 };
 
 const Header = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 9;
   padding: 0.5rem 0;
   background-color: ${colors.white};
 `;
