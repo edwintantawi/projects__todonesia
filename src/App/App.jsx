@@ -5,23 +5,30 @@ import styled from 'styled-components';
 import AppMain from '../components/AppMain';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppTodayTodo from '../routes/AppTodayTodo';
+import useDataStore from '../hooks/useDataStore';
+import AppAuth from '../routes/AppAuth';
 
 const App = () => {
+  const [{ user }] = useDataStore();
   return (
     <div className="app">
-      <Router>
-        <AppHeader />
-        <AppContainer>
-          <Content>
-            <AppMenu />
-            <AppMain>
-              <Switch>
-                <Route exact path="/" component={AppTodayTodo} />
-              </Switch>
-            </AppMain>
-          </Content>
-        </AppContainer>
-      </Router>
+      {!user ? (
+        <AppAuth />
+      ) : (
+        <Router>
+          <AppHeader />
+          <AppContainer>
+            <Content>
+              <AppMenu />
+              <AppMain>
+                <Switch>
+                  <Route exact path="/" component={AppTodayTodo} />
+                </Switch>
+              </AppMain>
+            </Content>
+          </AppContainer>
+        </Router>
+      )}
     </div>
   );
 };
