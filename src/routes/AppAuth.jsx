@@ -15,26 +15,35 @@ const AppAuth = () => {
 
   const handleSignIn = (provider) => {
     auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.info(result);
-        const accessToken = result.credential.accessToken;
-        const photoURL =
-          result.credential.providerId === 'facebook.com'
-            ? `${result.user.photoURL}?access_token=${accessToken}`
-            : result.user.photoURL;
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+        return auth
+          .signInWithPopup(provider)
+          .then((result) => {
+            console.info(result);
+            const accessToken = result.credential.accessToken;
+            const photoURL =
+              result.credential.providerId === 'facebook.com'
+                ? `${result.user.photoURL}?access_token=${accessToken}`
+                : result.user.photoURL;
 
-        dispatch({
-          type: actionTypes.ADD_USER,
-          payload: {
-            uid: result.user.uid,
-            email: result.user.email,
-            displayName: result.user.displayName,
-            photoURL: photoURL,
-          },
-        });
+            dispatch({
+              type: actionTypes.ADD_USER,
+              payload: {
+                uid: result.user.uid,
+                email: result.user.email,
+                displayName: result.user.displayName,
+                photoURL: photoURL,
+              },
+            });
+          })
+          .catch((error) =>
+            firebase.auth().signInWithCredential(error.credential)
+          );
       })
-      .catch((error) => firebase.auth().signInWithCredential(error.credential));
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (

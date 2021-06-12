@@ -8,9 +8,30 @@ import AppTodayTodo from '../routes/AppTodayTodo';
 import useDataStore from '../hooks/useDataStore';
 import AppAuth from '../routes/AppAuth';
 import AppDataProvider from '../components/AppDataProvider';
+import { useEffect } from 'react';
+import firebase from '../services/firebase';
+import actionTypes from '../context/actionTypes';
 
 const App = () => {
-  const [{ user }] = useDataStore();
+  const [{ user }, dispatch] = useDataStore();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.info('user :', user);
+      if (user) {
+        dispatch({
+          type: actionTypes.ADD_USER,
+          payload: {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          },
+        });
+      }
+    });
+  }, [dispatch]);
+
   return (
     <div className="app">
       {!user ? (
