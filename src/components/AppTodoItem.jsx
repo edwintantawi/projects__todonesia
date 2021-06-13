@@ -5,11 +5,16 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { db } from '../services/firebase';
 
-const AppTodoItem = ({ title, id, isDone }) => {
+const AppTodoItem = ({ title, id, isDone, reminder }) => {
   const handleOnChange = (event) => {
     db.collection('todos').doc(id).update({
       isDone: event.target.checked,
     });
+  };
+
+  const formatReminder = () => {
+    const formatedReminder = reminder.split('T').join(' | ');
+    return formatedReminder;
   };
 
   return (
@@ -19,6 +24,7 @@ const AppTodoItem = ({ title, id, isDone }) => {
       </TodoCheck>
       <TodoTask>
         <h3>{title}</h3>
+        {reminder && <time>{formatReminder()}</time>}
       </TodoTask>
     </TodoItem>
   );
@@ -60,9 +66,17 @@ const TodoCheck = styled.div`
 `;
 
 const TodoTask = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   h3 {
     font-weight: ${fonts.medium};
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  time {
+    font-size: 0.7rem;
+    color: ${colors.gray};
   }
 
   @media screen and (min-width: 750px) {

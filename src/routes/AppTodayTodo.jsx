@@ -13,6 +13,9 @@ const AppTodayTodo = () => {
   const [{ user, todos }] = useDataStore();
   const [addTodoActiveState, setAddTodoActiveState] = useState(false);
   const [inputTodo, setInputTodo] = useState('');
+  const [isActiveReminder, setIsActiveReminder] = useState(false);
+  const [currentDateTime] = useState(new Date().toISOString().split('.')[0]);
+  const [reminder, setReminder] = useState(currentDateTime);
 
   const handleAddTodo = (event) => {
     event.preventDefault();
@@ -25,10 +28,17 @@ const AppTodayTodo = () => {
       return;
     }
 
+    let reminderTodo = null;
+
+    if (isActiveReminder) {
+      reminderTodo = reminder;
+    }
+
     const todoData = {
       uid: user.uid,
       title: inputTodo,
       isDone: false,
+      reminder: reminderTodo,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
@@ -39,6 +49,10 @@ const AppTodayTodo = () => {
   const handleCancelTodo = () => {
     setInputTodo('');
     setAddTodoActiveState(false);
+  };
+
+  const handleActiveReminder = () => {
+    setIsActiveReminder((prev) => !prev);
   };
 
   return (
@@ -54,11 +68,19 @@ const AppTodayTodo = () => {
             id={todo.id}
             title={todo.title}
             isDone={todo.isDone}
+            reminder={todo.reminder}
           />
         ))}
         <form onSubmit={handleAddTodo}>
           {addTodoActiveState && (
-            <AppTodoInput value={inputTodo} onChange={setInputTodo} />
+            <AppTodoInput
+              value={inputTodo}
+              onChange={setInputTodo}
+              onClickActiveReminder={handleActiveReminder}
+              isActiveReminder={isActiveReminder}
+              reminder={reminder}
+              onChangeReminder={setReminder}
+            />
           )}
 
           <AppWrapper>
