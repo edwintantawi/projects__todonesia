@@ -10,7 +10,10 @@ const AppAllTodo = () => {
 
   return (
     <div>
-      <AppMainHeader title="All Todo" description="What is your main focus?" />
+      <AppMainHeader
+        title="All Todo"
+        description="Stay organized, consistent, and focus"
+      />
       <AppTodoList>
         {todos.map((todo) => (
           <AppTodoItem
