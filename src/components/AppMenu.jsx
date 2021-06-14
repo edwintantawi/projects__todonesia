@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import useDataStore from '../hooks/useDataStore';
 import actionTypes from '../context/actionTypes';
 import { getTodayReminder } from '../utils/reminder';
-import { useRef } from 'react';
 
 const AppMenu = () => {
   const [{ todos, activeMenu }, dispatch] = useDataStore();
@@ -82,7 +81,7 @@ const Menu = styled.nav`
     padding: 0.7rem 1rem;
     text-decoration: none;
     margin-bottom: 1rem;
-    border-left: 5px solid ${colors.primary500};
+    border-left: 3px solid ${colors.primary500};
     font-size: 0.8rem;
 
     span {
@@ -92,6 +91,7 @@ const Menu = styled.nav`
 
     @media screen and (min-width: 750px) {
       padding: 1rem 1.5rem;
+      border-left: 5px solid ${colors.primary500};
     }
   }
 
