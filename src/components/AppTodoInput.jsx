@@ -65,7 +65,7 @@ const InputTodo = styled.div`
     border: none;
     outline: none;
     padding: 0.5rem 0.5rem 0.8rem;
-    border-bottom: 1px solid ${colors.gray};
+    border-bottom: 1px solid ${colors.lightgray};
   }
 
   input[type='datetime-local'] {
