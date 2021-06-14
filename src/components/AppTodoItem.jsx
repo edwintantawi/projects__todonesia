@@ -18,7 +18,7 @@ const AppTodoItem = ({ title, id, isDone, reminder }) => {
       <TodoCheck>
         <input type="checkbox" checked={isDone} onChange={handleOnChange} />
       </TodoCheck>
-      <TodoTask>
+      <TodoTask isDone={isDone}>
         <h3>{title}</h3>
         {reminder && (
           <time>
@@ -72,6 +72,8 @@ const TodoTask = styled.div`
   h3 {
     font-weight: ${fonts.medium};
     font-size: 0.9rem;
+    text-decoration: ${(props) => (props.isDone ? 'line-through' : 'none')};
+    color: ${(props) => (props.isDone ? colors.gray : colors.black)};
   }
 
   time {
