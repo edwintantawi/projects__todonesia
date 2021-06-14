@@ -13,6 +13,7 @@ import actionTypes from '../context/actionTypes';
 import { useLayoutEffect } from 'react';
 import AppLoading from '../components/AppLoading';
 import { useState } from 'react';
+import AppAllTodo from '../routes/AppAllTodo';
 
 const App = () => {
   const [{ user }, dispatch] = useDataStore();
@@ -49,7 +50,8 @@ const App = () => {
               <AppMenu />
               <AppMain>
                 <Switch>
-                  <Route exact path="/" component={AppTodayTodo} />
+                  <Route exact path="/" component={AppAllTodo} />
+                  <Route path="/today" component={AppTodayTodo} />
                 </Switch>
               </AppMain>
             </Content>
