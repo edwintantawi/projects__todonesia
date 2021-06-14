@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import useDataStore from '../hooks/useDataStore';
 import actionTypes from '../context/actionTypes';
 import { getTodayReminder } from '../utils/reminder';
+import { useRef } from 'react';
 
 const AppMenu = () => {
   const [{ todos, activeMenu }, dispatch] = useDataStore();
@@ -17,35 +18,38 @@ const AppMenu = () => {
   };
 
   return (
-    <Menu activeMenu={activeMenu}>
-      <NavLink exact to="/" onClick={handleClickLink}>
-        All Todo
-        <span>{todos.length}</span>
-      </NavLink>
-      <NavLink to="/today" onClick={handleClickLink}>
-        Today
-        <span>
-          {
-            todos.filter((filteredTodo) =>
-              getTodayReminder(filteredTodo.reminder)
-            ).length
-          }
-        </span>
-      </NavLink>
-      <NavLink to="/important" onClick={handleClickLink}>
-        Important
-      </NavLink>
-      <NavLink to="/daily" onClick={handleClickLink}>
-        Daily Todo
-      </NavLink>
-    </Menu>
+    <>
+      <Menu activeMenu={activeMenu} id="menu-drawer">
+        <NavLink exact to="/" onClick={handleClickLink}>
+          All Todo
+          <span>{todos.length}</span>
+        </NavLink>
+        <NavLink to="/today" onClick={handleClickLink}>
+          Today
+          <span>
+            {
+              todos.filter((filteredTodo) =>
+                getTodayReminder(filteredTodo.reminder)
+              ).length
+            }
+          </span>
+        </NavLink>
+        <NavLink to="/important" onClick={handleClickLink}>
+          Important
+        </NavLink>
+        <NavLink to="/daily" onClick={handleClickLink}>
+          Daily Todo
+        </NavLink>
+      </Menu>
+      <MenuLayer activeMenu={activeMenu} onClick={handleClickLink} />
+    </>
   );
 };
 
 const Menu = styled.nav`
-  z-index: 9;
+  z-index: 8;
   position: fixed;
-  top: 66px;
+  top: 64px;
   bottom: 0;
   left: 0;
   width: 60%;
@@ -56,6 +60,7 @@ const Menu = styled.nav`
 
   background-color: ${colors.white};
   border-right: 1px solid ${colors.lightgray};
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border-radius: 0;
 
   @media screen and (min-width: 750px) {
@@ -68,6 +73,7 @@ const Menu = styled.nav`
     border-radius: 1rem;
     margin-top: 0.8rem;
     border: none;
+    box-shadow: none;
   }
 
   & > a {
@@ -98,6 +104,19 @@ const Menu = styled.nav`
 
   & > a:hover:not(.active) {
     background-color: ${colors.primary200};
+  }
+`;
+
+const MenuLayer = styled.div`
+  z-index: 7;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  visibility: ${(props) => (props.activeMenu ? 'visible' : 'hidden')};
+  @media screen and (min-width: 750px) {
+    display: none;
   }
 `;
 export default AppMenu;
