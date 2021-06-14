@@ -4,17 +4,13 @@ import styled from 'styled-components';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { db } from '../services/firebase';
+import { getDate, getTime } from '../utils/reminder';
 
 const AppTodoItem = ({ title, id, isDone, reminder }) => {
   const handleOnChange = (event) => {
     db.collection('todos').doc(id).update({
       isDone: event.target.checked,
     });
-  };
-
-  const formatReminder = () => {
-    const formatedReminder = reminder.split('T').join(' | ');
-    return formatedReminder;
   };
 
   return (
@@ -24,7 +20,11 @@ const AppTodoItem = ({ title, id, isDone, reminder }) => {
       </TodoCheck>
       <TodoTask>
         <h3>{title}</h3>
-        {reminder && <time>{formatReminder()}</time>}
+        {reminder && (
+          <time>
+            {getTime(reminder)} | {getDate(reminder)}
+          </time>
+        )}
       </TodoTask>
     </TodoItem>
   );
