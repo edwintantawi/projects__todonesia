@@ -3,7 +3,7 @@ import AppMenu from '../components/AppMenu';
 import AppContainer from '../components/AppContainer';
 import styled from 'styled-components';
 import AppMain from '../components/AppMain';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, HashRouter } from 'react-router-dom';
 import AppTodayTodo from '../routes/AppTodayTodo';
 import useDataStore from '../hooks/useDataStore';
 import AppAuth from '../routes/AppAuth';
@@ -42,7 +42,7 @@ const App = () => {
       {!user ? (
         <AppAuth />
       ) : (
-        <Router>
+        <HashRouter>
           <AppDataProvider />
           <AppHeader />
           <AppContainer>
@@ -56,7 +56,7 @@ const App = () => {
               </AppMain>
             </Content>
           </AppContainer>
-        </Router>
+        </HashRouter>
       )}
     </div>
   );
