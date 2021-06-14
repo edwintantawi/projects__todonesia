@@ -5,6 +5,8 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { db } from '../services/firebase';
 import { getDate, getTime } from '../utils/reminder';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { IconButton } from '@material-ui/core';
 
 const AppTodoItem = ({ title, id, isDone, reminder }) => {
   const handleOnChange = (event) => {
@@ -13,10 +15,19 @@ const AppTodoItem = ({ title, id, isDone, reminder }) => {
     });
   };
 
+  const handleOnDeteleTodo = () => {
+    db.collection('todos').doc(id).delete();
+  };
+
   return (
     <TodoItem>
       <TodoCheck>
-        <input type="checkbox" checked={isDone} onChange={handleOnChange} />
+        <input
+          type="checkbox"
+          checked={isDone}
+          onChange={handleOnChange}
+          title="mark as done"
+        />
       </TodoCheck>
       <TodoTask isDone={isDone}>
         <h3>{title}</h3>
@@ -26,6 +37,11 @@ const AppTodoItem = ({ title, id, isDone, reminder }) => {
           </time>
         )}
       </TodoTask>
+      <TodoUtility>
+        <IconButton size="small" onClick={handleOnDeteleTodo} title="Delete">
+          <DeleteOutlineIcon style={{ fill: '#bf0000' }} />
+        </IconButton>
+      </TodoUtility>
     </TodoItem>
   );
 };
@@ -42,7 +58,7 @@ AppTodoItem.defaultProps = {
 const TodoItem = styled.li`
   list-style: none;
   display: grid;
-  grid-template-columns: 26px 1fr;
+  grid-template-columns: 26px 1fr 24px;
   column-gap: 1rem;
   padding: 1rem;
   margin-bottom: 0.7rem;
@@ -50,7 +66,7 @@ const TodoItem = styled.li`
   background-color: ${colors.lightgray};
 
   @media screen and (min-width: 750px) {
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 50px 1fr 50px;
   }
 `;
 
@@ -86,6 +102,12 @@ const TodoTask = styled.div`
       font-size: 0.9rem;
     }
   }
+`;
+
+const TodoUtility = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default AppTodoItem;
