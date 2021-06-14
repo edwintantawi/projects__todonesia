@@ -5,9 +5,10 @@ import fonts from '../styles/fonts';
 import { NavLink } from 'react-router-dom';
 import useDataStore from '../hooks/useDataStore';
 import actionTypes from '../context/actionTypes';
+import { getTodayReminder } from '../utils/reminder';
 
 const AppMenu = () => {
-  const [{ activeMenu }, dispatch] = useDataStore();
+  const [{ todos, activeMenu }, dispatch] = useDataStore();
 
   const handleClickLink = () => {
     dispatch({
@@ -19,9 +20,17 @@ const AppMenu = () => {
     <Menu activeMenu={activeMenu}>
       <NavLink exact to="/" onClick={handleClickLink}>
         All Todo
+        <span>{todos.length}</span>
       </NavLink>
       <NavLink to="/today" onClick={handleClickLink}>
         Today
+        <span>
+          {
+            todos.filter((filteredTodo) =>
+              getTodayReminder(filteredTodo.reminder)
+            ).length
+          }
+        </span>
       </NavLink>
       <NavLink to="/important" onClick={handleClickLink}>
         Important
@@ -62,12 +71,18 @@ const Menu = styled.nav`
   }
 
   & > a {
-    display: block;
+    display: flex;
+    justify-content: space-between;
     padding: 0.7rem 1rem;
     text-decoration: none;
     margin-bottom: 1rem;
     border-left: 5px solid ${colors.primary500};
     font-size: 0.8rem;
+
+    span {
+      color: inherit;
+      font-size: inherit;
+    }
 
     @media screen and (min-width: 750px) {
       padding: 1rem 1.5rem;
