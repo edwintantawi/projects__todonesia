@@ -106,7 +106,7 @@ const UserSubMenu = styled.div`
   padding: 0.8rem 0.8rem;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   transition: 350ms;
 
   transform: ${(props) =>
