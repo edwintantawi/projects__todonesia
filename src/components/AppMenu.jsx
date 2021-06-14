@@ -18,6 +18,9 @@ const AppMenu = () => {
   return (
     <Menu activeMenu={activeMenu}>
       <NavLink exact to="/" onClick={handleClickLink}>
+        All Todo
+      </NavLink>
+      <NavLink to="/today" onClick={handleClickLink}>
         Today
       </NavLink>
       <NavLink to="/important" onClick={handleClickLink}>
@@ -25,9 +28,6 @@ const AppMenu = () => {
       </NavLink>
       <NavLink to="/daily" onClick={handleClickLink}>
         Daily Todo
-      </NavLink>
-      <NavLink to="/all" onClick={handleClickLink}>
-        All Todo
       </NavLink>
     </Menu>
   );
