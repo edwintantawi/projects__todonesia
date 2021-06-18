@@ -24,7 +24,7 @@ const AppTodoInput = ({
       />
       <Utility>
         <input
-          type="datetime-local"
+          type="date"
           value={reminder}
           onChange={(e) => onChangeReminder(e.target.value)}
           style={{ visibility: isActiveReminder ? 'visible' : 'hidden' }}
@@ -68,7 +68,7 @@ const InputTodo = styled.div`
     border-bottom: 1px solid ${colors.lightgray};
   }
 
-  input[type='datetime-local'] {
+  input[type='date'] {
     width: max-content;
     outline: none;
     background-color: white;

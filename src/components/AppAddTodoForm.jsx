@@ -11,10 +11,10 @@ const AppAddTodoForm = () => {
   const [addTodoActiveState, setAddTodoActiveState] = useState(false);
   const [inputTodo, setInputTodo] = useState('');
   const [isActiveReminder, setIsActiveReminder] = useState(false);
-  const [currentDateTime] = useState(
-    new Date().toISOString().split('.')[0].split(':').splice(0, 2).join(':')
-  );
+  const [currentDateTime] = useState(new Date().toISOString().split('T')[0]);
   const [reminder, setReminder] = useState(currentDateTime);
+
+  console.info(reminder);
 
   const handleAddTodo = (event) => {
     event.preventDefault();

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { db } from '../services/firebase';
-import { getDate, getTime } from '../utils/reminder';
+import { getDate } from '../utils/reminder';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { IconButton } from '@material-ui/core';
 
@@ -31,11 +31,7 @@ const AppTodoItem = ({ title, id, isDone, reminder }) => {
       </TodoCheck>
       <TodoTask isDone={isDone}>
         <h3>{title}</h3>
-        {reminder && (
-          <time>
-            {getTime(reminder)} | {getDate(reminder)}
-          </time>
-        )}
+        {reminder && <time>{getDate(reminder)}</time>}
       </TodoTask>
       <TodoUtility>
         <IconButton size="small" onClick={handleOnDeteleTodo} title="Delete">
