@@ -14,6 +14,7 @@ import { useLayoutEffect } from 'react';
 import AppLoading from '../components/AppLoading';
 import { useState } from 'react';
 import AppAllTodo from '../routes/AppAllTodo';
+import AppUnfinishedTodo from '../routes/AppUnfinishedTodo';
 
 const App = () => {
   const [{ user }, dispatch] = useDataStore();
@@ -52,6 +53,7 @@ const App = () => {
                 <Switch>
                   <Route exact path="/" component={AppAllTodo} />
                   <Route path="/today" component={AppTodayTodo} />
+                  <Route path="/unfinished" component={AppUnfinishedTodo} />
                 </Switch>
               </AppMain>
             </Content>
