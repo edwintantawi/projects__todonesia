@@ -33,12 +33,21 @@ const AppMenu = () => {
             }
           </span>
         </NavLink>
-        <NavLink to="/important" onClick={handleClickLink}>
+        <NavLink to="/unfinished" onClick={handleClickLink}>
+          Unfinished
+          <span>
+            {
+              todos.filter((filteredTodo) => filteredTodo.isDone === false)
+                .length
+            }
+          </span>
+        </NavLink>
+        {/* <NavLink to="/important" onClick={handleClickLink}>
           Important
         </NavLink>
         <NavLink to="/daily" onClick={handleClickLink}>
           Daily Todo
-        </NavLink>
+        </NavLink> */}
       </Menu>
       <MenuLayer activeMenu={activeMenu} onClick={handleClickLink} />
     </>
